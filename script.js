@@ -62,3 +62,98 @@ async function fetchIssues() {
 
     loader.classList.add('hidden');
 }
+
+// Render Issue Cards
+function renderCards(data) {
+
+    if(data.length === 0){
+        container.innerHTML = `
+        <p class="col-span-full text-center text-gray-400 font-semibold">
+        No issues found
+        </p>`;
+        countDisplay.innerText = 0;
+        return;
+    }
+
+    countDisplay.innerText = data.length;
+
+    container.innerHTML = data.map(issue => {
+
+        const isOpen = issue.status.toLowerCase() === 'open';
+
+        const topBorder = isOpen
+            ? 'border-t-[#00A96E]'
+            : 'border-t-[#A855F7]';
+
+        const priorityMap = {
+            high: "bg-[#FEECEC] text-[#EF4444]",
+            medium: "bg-[#FFF6D1] text-[#F59E0B]",
+            low: "bg-[#EEEFF2] text-[#9CA3AF]"
+        };
+
+        const priorityStyle = priorityMap[issue.priority.toLowerCase()];
+
+
+        const statusImg = isOpen
+            ? `<img src="./assets/Open-Status.png" class="w-6 h-6">`
+            : `<img src="./assets/Closed- Status .png" class="w-6 h-6">`;
+
+        return `
+
+        <div onclick="openModal('${issue.id}')"
+        class="bg-white border border-gray-100 border-t-4 ${topBorder}
+        rounded-lg shadow-sm cursor-pointer hover:shadow-md
+        transition-all flex flex-col h-full">
+
+            <div class="p-5 flex-1 flex flex-col">
+
+                <div class="flex justify-between items-center mb-4">
+                    <div>${statusImg}</div>
+
+                    <span class="text-[10px] font-medium px-5 py-1 rounded-full uppercase ${priorityStyle}">
+                    ${issue.priority}
+                    </span>
+                </div>
+
+                <h3 class="font-semibold text-black text-sm mb-2">
+                ${issue.title}
+                </h3>
+
+                <p class="text-xs text-gray-400 mb-6">
+                ${issue.description}
+                </p>
+
+                <div class="flex flex-wrap gap-2 mb-4">
+
+                    <span class="text-[10px] font-medium bg-[#FEECEC] text-[#EF4444] px-2 py-1 rounded-full border border-[#FECACA] uppercase">
+                    <i class="fas fa-bug text-[8px]"></i>
+                    ${issue.category}
+                    </span>
+
+                    <span class="text-[10px] font-medium bg-[#FFF8DB] text-[#D97706] px-2 py-1 rounded-full border border-[#FDE68A] uppercase">
+                    <i class="fa-solid fa-life-ring text-[8px]"></i>
+                    HELP WANTED
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="px-5 py-4 border-t border-gray-100 bg-gray-50/30">
+
+                <p class="text-[10px] text-[#64748B] uppercase">
+                #${issue.id} by ${issue.author}
+                </p>
+
+                <p class="text-[10px] text-[#64748B] mt-1">
+                ${new Date(issue.createdAt).toLocaleDateString('en-US')}
+                </p>
+
+            </div>
+
+        </div>
+
+        `;
+
+    }).join('');
+}
