@@ -329,3 +329,5 @@ document.getElementById('issueModal').addEventListener('click', function(e){
 
 });
 
+// Page load - fetch and display all issues 
+window.onload = fetchIssues;
