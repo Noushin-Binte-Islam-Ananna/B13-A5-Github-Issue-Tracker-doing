@@ -313,3 +313,19 @@ async function openModal(id) {
     }
 
 }
+
+// Close Modal function
+function closeModal(){
+    document.getElementById('issueModal').classList.add('hidden');
+}
+
+
+// close when clicking outside modal
+document.getElementById('issueModal').addEventListener('click', function(e){
+
+    if(e.target.id === "issueModal"){
+        closeModal();
+    }
+
+});
+
