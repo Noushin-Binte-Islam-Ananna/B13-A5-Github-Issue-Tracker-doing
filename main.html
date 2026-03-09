@@ -58,7 +58,35 @@
 
             <hr class="border-gray-300">
 
-            
+            <div id="loader" class="hidden text-center py-20">
+                <div class="animate-spin inline-block w-10 h-10 border-4 border-green-500 border-t-transparent rounded-full"></div>
+                <p class="mt-4 text-gray-500 font-medium">Loading issues...</p>
+            </div>
+
+            <div id="issuesContainer" class="p-6 md:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        </div>
+    </div>
+
+    <div id="issueModal" class="hidden">
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-[2px]"></div> 
+            <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl relative p-10 z-10">
+                <span class="absolute -top-7 left-0 text-gray-400 text-[13px] font-medium tracking-wide">
+                    Popup
+                </span>
+                
+                <div id="modalContent">
+                    </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button onclick="closeModal()" class="px-8 py-2.5 bg-[#4A00FF] text-white font-bold rounded-lg hover:bg-[#3b00cc] transition-all shadow-lg">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
