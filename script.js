@@ -26,3 +26,39 @@ if (loginForm) {
         }
     });
 }
+
+const API = "https://phi-lab-server.vercel.app/api/v1/lab";
+
+const container = document.getElementById('issuesContainer');
+const countDisplay = document.getElementById('countDisplay');
+const loader = document.getElementById('loader');
+const searchInput = document.getElementById('searchInput');
+
+let allIssues = [];
+
+// Fetch all issues from API and render on page load
+async function fetchIssues() {
+
+    loader.classList.remove('hidden');
+    container.innerHTML = '';
+
+    try {
+
+        const res = await fetch(`${API}/issues`);
+        const result = await res.json();
+
+        allIssues = result.data;
+
+        renderCards(allIssues);
+
+    } catch (err) {
+
+        container.innerHTML = `
+        <p class="col-span-full text-center text-red-500 font-bold">
+        Failed to load data.
+        </p>`;
+
+    }
+
+    loader.classList.add('hidden');
+}
