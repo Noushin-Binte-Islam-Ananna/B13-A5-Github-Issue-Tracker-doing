@@ -157,3 +157,25 @@ function renderCards(data) {
 
     }).join('');
 }
+
+// Filter issues based on status
+function filterIssues(status, btn) {
+
+    document.querySelectorAll('.tab-btn').forEach(b => {
+
+        b.classList.remove('bg-[#4A00FF]', 'text-white');
+        b.classList.add('text-gray-500', 'border', 'border-gray-300');
+
+    });
+
+    btn.classList.add('bg-[#4A00FF]', 'text-white');
+    btn.classList.remove('text-gray-500', 'border', 'border-gray-300');
+
+
+    const filtered =
+        status === 'all'
+        ? allIssues
+        : allIssues.filter(issue => issue.status.toLowerCase() === status);
+
+    renderCards(filtered);
+}
